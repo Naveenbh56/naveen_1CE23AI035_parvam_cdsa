@@ -11,7 +11,3 @@ void main(){
     else
         puts("Enter a value between -1000.0 and 1000.0");
 }
-
-
-
-
