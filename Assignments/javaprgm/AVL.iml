@@ -55,10 +55,11 @@ class AVLTree {
         } else if (value > node.value) {
             node.right = insertRec(node.right, value);
         } else {
-            return node;
+            return node; // Duplicate values are not allowed
         }
 
         node.height = Math.max(height(node.left), height(node.right)) + 1;
+
         int balance = balanceFactor(node);
 
         if (balance > 1 && value < node.left.value) {
@@ -82,27 +83,27 @@ class AVLTree {
         return node;
     }
 
+    public boolean search(int value) {
+        return searchRec(root, value);
+    }
+
+    private boolean searchRec(Node node, int value) {
+        if (node == null) return false;
+        if (node.value == value) return true;
+        return value < node.value ? searchRec(node.left, value) : searchRec(node.right, value);
+    }
+
     public void inorder() {
         inorderRec(root);
         System.out.println();
     }
 
-    private void inorderRec(Node root) {
-        if (root != null) {
-            inorderRec(root.left);
-            System.out.print(root.value + " ");
-            inorderRec(root.right);
+    private void inorderRec(Node node) {
+        if (node != null) {
+            inorderRec(node.left);
+            System.out.print(node.value + " ");
+            inorderRec(node.right);
         }
-    }
-
-    public boolean search(int value) {
-        return searchRec(root, value);
-    }
-
-    private boolean searchRec(Node root, int value) {
-        if (root == null) return false;
-        if (root.value == value) return true;
-        return value < root.value ? searchRec(root.left, value) : searchRec(root.right, value);
     }
 
     public int min() {
@@ -122,7 +123,7 @@ class AVLTree {
     }
 }
 
-public class AVL {
+public class AVL{
     public static void main(String[] args) {
         AVLTree tree = new AVLTree();
 
